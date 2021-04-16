@@ -1,0 +1,91 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+  {% block head %}
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous">
+  </script>
+  <script src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
+
+  <title>{% block title %} {% endblock %}</title>
+
+  
+  <style>
+    body {
+      margin: 0px;
+    }
+    .navbar-nav > li{
+      padding-left:15px;
+      padding-right:15x;
+    }
+   
+    #third{
+      background: url("{% static 'images/beirut.jpeg' %}")  50% 0 no-repeat fixed;
+              
+    
+      background-size: cover; 
+      
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.8;
+      }
+      
+    </style>
+    {% endblock %}
+ 
+</head>
+
+<body>
+  
+  <nav class="navbar navbar-expand-lg navbar-light bg-light ">
+
+    <div class="container">
+      <ul class="nav navbar-nav">
+        <li><a class="nav-link"></a></li>
+        <li><a></a></li>
+          {% if request.user.is_authenticated %}
+              <li><a class="nav-link">Welcome Back: {{request.user.username|capfirst}} </a></li>
+          {% endif %}
+        <li><a class="nav-link" href="{% url 'index' %}">Home</a></li><a></a>
+        <li><a class="nav-link" href="{% url 'form_VacationForm' %}">Vacations</a></li>
+        <li><a class="nav-link" href="{% url 'vacation_list' %}">Vacataion Lists</a></li>
+          {% if user.is_authenticated %}
+          <li><a class="nav-link">&nspar; &ThinSpace;&ThinSpace;&ThinSpace;</a></li><a>
+              <li class="form-inline"><a class="nav-link" href="{% url 'logout_request' %}">Logout</a></li>
+          {% else %}
+              <li class="form-inline"><a class="nav-link" href="{% url 'logout_request' %}"></a></li>
+          {% endif %}
+    </div>
+    </ul>
+    </div>
+  </nav>
+ 
+ 
+
+ 
+ <div class="container">   
+    {% block container_block %}
+
+    {% endblock  %}
+    </div>
+ 
+
+</body>
+
+</html>

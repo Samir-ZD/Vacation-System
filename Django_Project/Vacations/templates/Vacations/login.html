@@ -1,0 +1,128 @@
+{% extends "Vacations/base.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+
+  <title>{%block title %} {% endblock %}</title>
+
+
+  {% block container_block %}
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,200;300;400;500;600;700&display=swap');
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+ 
+      width: 100%;
+      /* value of your choice which suits your alignment */
+      align-items: center;
+      background-color: #30c090;
+
+
+    }
+
+    footer {
+
+      padding: 0;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      height: 6%;
+      width: 100%;
+      z-index: 999;
+    }
+
+    #div1 {
+      background-color: #126950;
+   
+
+    }
+
+    img {
+      border-radius: 50%;
+      border-radius: 4px;
+      padding: 10px;
+      width: 85px;
+    }
+
+    .jumbotron {
+
+      background-color: #126950;
+
+      position: relative;
+      width: 50px;
+      height: 50px;
+
+      /* Center vertically and horizontally */
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: -25px 0 0 -25px;
+
+    }
+
+    #items {
+      background-color: white;
+      margin: auto;
+      align-self: center;
+      width: 50%;
+      border: 25px solid #126950;
+      padding: 10px;
+      text-align: center;
+    }
+  </style>
+
+</head>
+
+<body>
+  
+  <br /><br />
+
+
+  <div id='div-1' class=" jubmotron">
+
+    <div id='items' class="jubmotron">
+      <img src="{% static '/images/default.png' %}" />
+      <p>PYTHON BOOTCAMP</p>
+      <h1 style="color: #209171;">Employee Vacataion</h1>
+      <p>Your way to add a vacation</p>
+      <form method="POST" action="{% url 'user_login' %}">
+        <div class="form-group mx-auto p-2">
+          {% csrf_token %}
+          <p>username: </p>
+          <input type="text" name="username" placeholder="enter your username" /><br>
+          <p>Password: </p>
+          <input type="password" name="password" placeholder="enter your password" /><br />
+
+          <input type="submit" value="login" class="btn btn-success" />
+          <hr>
+      </form>
+      <p>Not a user yet? <a href="{% url 'register' %}">register</a></p>
+      <p>&nbsp;</p>
+    </div>
+  </div>
+ 
+
+</body>
+<footer class="text-center text-black bottom-fixed " style="background-color: white;">
+  <div class="text-center py-3">
+    <p> Samir Zahreddine Django Project </p>
+  </div>
+</footer>
+{% endblock %}
