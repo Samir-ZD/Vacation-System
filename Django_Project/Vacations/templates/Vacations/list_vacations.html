@@ -1,6 +1,5 @@
-{% extends "Vacations/base.html" %} {%block head %} 
-
-
+{% extends "Vacations/base.html" %}
+{% block head %}
 <head>
 
 
@@ -50,9 +49,9 @@
 </style>
 </head>
 {% endblock%}
-
-<body>
   {% block container_block %}
+<body>
+
   <p style="color: white"><strong>Vacations:</strong></p>
   <table id="vacation_table" class="table">
     <thead>
@@ -71,9 +70,13 @@
         <td>{{vacation.desc}}</td>
         <td>{{vacation.user}}</td>
         <td>{{vacation.from_date}}</td>
-        <td>
-          {{vacation.to_date}}
-          <!-- <a name="vacation.id" href="{%url 'edit_vacation' %}{{vacation.vacation }}">Edit</a> -->
+        <td>{{vacation.to_date}}
+          <td class="d-flex"><a  href="/{{vacation.id}}/" class = 'btn btn-success btn-sm mx-2'>Edit</a>
+          <form action ={% url 'delete_vacation' %}" method='POST'>
+            {% csrf_token %}
+            <input type="hidden" value="{{vacation.id}}" name='id'>
+            <button class="btn btn-danger btn-sm mx-2" name="delete">Delete</button>
+          </form>
         </td>
       </tr>
       {% endfor %}

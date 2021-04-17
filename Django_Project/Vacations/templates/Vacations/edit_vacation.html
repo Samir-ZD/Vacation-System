@@ -4,7 +4,7 @@
 {%block title %} Vacation Form {% endblock %}
 
 {% block container_block %}
-
+<head>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
@@ -24,7 +24,9 @@
      
     }
 </style>
+</head>
 
+<body>
 <br />
 <br />
 <div class="jumbotron">
@@ -32,18 +34,15 @@
     <P>* all fields are required.</P>
     <form name="vacationForm" action="" method="POST">
         {% csrf_token %}
-        <!-- {{forms.as_p}}  -->
+        {{forms.as_p}} 
         
-        <!-- <p>{{vacation.id}}</p><br> -->
-        dec: <input type="text" name ='description' value="{{Vacation.desc}}"><br/>
-        from date: <input type="text" name = 'from_date' value="{{Vacation.from_date |date:'d/m/Y'}}"><br/>
-        to date: <input type="text" name = 'to_date' value="{{Vacation.to_date |date:'d/m/Y'}}"><br/> 
+        
     
 
         <input type="submit" id='save_vacation' class="btn btn-primary" value="submit">
     </form>
 </div>
-<footer>
+</body>
     <footer class="text-center text-black fixed-bottom" style="background-color: white;">
 
 

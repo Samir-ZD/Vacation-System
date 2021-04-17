@@ -228,7 +228,6 @@ def edit_profile(request):
 
 
 @login_required
-#def form_vacation
 def form_VacationForm(request):
     """
     On form validated, create vacation and assign it to the logged in user
@@ -258,48 +257,46 @@ def form_VacationForm(request):
 
 
 @login_required
-def edit_vacation(request):
-
-    description = request.POST.get('desc')
-    date_from = request.POST.get('from_date')
-    date_to = request.POST.get('to_date')
-
-    vacation_id = request.POST.get('vacation_id')
-
+def edit_vacation(request, id ):
+    """
+    user edits his Vacations
+    """
     
-    try:
-        if description and date_from and date_to: 
-        
-            if vacation_id:
-                #update
-                vacation = Vacation.objects.filter(id=vacation_id).first()
-            else:
-                vacation = Vacation(employee_id=request.user.id)
+    instance = Vacation.objects.get(pk = id)
+    if request.method == 'POST':
+        form = VacationInfoForm(request.POST,instance = instance)
+        if form.is_valid():
+            form.save()
+            #return  render(request, 'Vacations/list_vacations.html')
+            return redirect('Vacations/list_vacations')
+            messages.success(request,"UPDATED")
+            log.debug('UPDATED')
+
+    form = VacationInfoForm(instance = instance)
+    return render(request,'Vacations/edit_vacation.html',context={'forms':form})
+
             
-            if vacation:
-                vacation.description = description
-                vacation.date_from = datetime.strptime(date_from, "%d/%m/%Y")
-                vacation.date_to = datetime.strptime(date_to, "%d/%m/%Y")
-          
-                vacation.save()
-                
-               
-                
-                log.error("%s vacation successfully" % ("Updated" if vacation_id else "Created"))
-            else:
-                log.error("%s Failed 1 ")
+@login_required
+def delete_vacation(request):
+    """
+    user deletes unwanted vvacations
+    """
 
-                
-                
-        else:
-            log.error("%s Failed 2 ")
+    form = VacationInfoForm(request.POST)
+    if request.method == 'POST':
+        id = request.POST['id']
+        Vacation.objects.get(pk = id).delete()
+        fm = VacationInfoForm()
+        #return HttpResponse('Vacation Deleted')
+        return HttpResponseRedirect(reverse('vacation_list'))
+    else:
+        return HttpResponseRedirect(reverse('vacation_list'))
 
-
-    except:
-
-        log.error("Error while saving vacation", exc_info=1)
-                
+    return render(request,'Vacations/list_vacations.html',context={'forms':form})
     
+
+        
+
 
 
 
@@ -317,9 +314,6 @@ urlpatterns = [
     url(r'test/',test,name='test'),
    
     url(r'edit_profile/', edit_profile, name='edit_profile'),
-    url(r'edit_vacation', edit_vacation, name='edit_vacation'),
-
-
-    
+    url(r'delete_vacation/', delete_vacation, name='delete_vacation'),
 
 ]

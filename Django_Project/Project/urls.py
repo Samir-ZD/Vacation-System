@@ -33,5 +33,7 @@ urlpatterns = [
    # (r'^$', views.index, name='index'),
     re_path(r'^$',views.test,name='test'),
         #path(views.home,name='home'),
+    path('<int:id>/', views.edit_vacation, name='edit_vacation'),
+
     path(r'',include(views.urlpatterns))
 ]  + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
