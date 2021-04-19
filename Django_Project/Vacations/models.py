@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 class EmployeeProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_pic = models.ImageField(default='df.png')
+    profile_pic = models.ImageField(default='static/images/df.png')
     position = models.CharField(max_length=255)
     date_of_birth = models.DateField()
 
@@ -15,6 +15,7 @@ class EmployeeProfile(models.Model):
 
 
 class Vacation(models.Model):
+    #emp_name = models.ForeignKey(User,on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     desc = models.CharField(max_length=255)
     from_date = models.DateField()

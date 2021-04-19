@@ -1,63 +1,28 @@
-{% extends "Vacations/base.html" %}
-{% block head %}
-<head>
+{% extends "Vacations/base.html" %} {%block head %} Vacation List{% endblock%}
 
+<head> </head>
 
-<link
-  rel="stylesheet"
-  href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-  crossorigin="anonymous"
-/>
-
-<script
-  src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-  crossorigin="anonymous"
-></script>
-<script
-  src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-  crossorigin="anonymous"
-></script>
+{% block container_block %}
 
 <style>
-  * {
-    padding: 0;
-    margin: 0;
+ body{
+  background-color: #209171;
+ }
+  #div-1{
+    color: white;
   }
-  body {
-    margin: 0;
-    width: 100%; /* value of your choice which suits your alignment */
-    align-items: center;
-    background-color: #30c090;
-
-  }
-  table {
-    background-color: white;
-  }
-  footer {
-    padding: 0 !important;
-    position: absolute;
-    left: 0;
-    z-index: 999;
-    width: 100%;
-    height: 6%;
-    display: inline-block;
- 
-  }
+  
 </style>
-</head>
-{% endblock%}
-  {% block container_block %}
-<body>
+<p><strong>Vacations:</strong></p>
 
-  <p style="color: white"><strong>Vacations:</strong></p>
-  <table id="vacation_table" class="table">
+<body>
+  <div id="div-1">
+  <table id="vacation_table" class="table table-dark" style="width: 75%;">
     <thead>
-      <tr scope="row">
-        <th>Location</th>
-        <th>Employee</th>
+      <tr>
+        <th>id:</th>
+        <th>Location:</th>
+        <th>Employee:</th>
         <th>From:</th>
         <th>To:</th>
       </tr>
@@ -65,51 +30,68 @@
     <tbody>
       {% for vacation in vacations %}
       <tr>
+        <td>{{vacation.user_id}}</td>
 
         <td>{{vacation.desc}}</td>
         <td>{{vacation.user}}</td>
-        <td>{{vacation.from_date}}</td>
-        <td>{{vacation.to_date}}
-          <td class="d-flex"><a  href="/{{vacation.id}}/" class = 'btn btn-success btn-sm mx-2'>Edit</a>
-          <form action ={% url 'delete_vacation' %}" method='POST'>
-            {% csrf_token %}
-            <input type="hidden" value="{{vacation.id}}" name='id'>
-            <button class="btn btn-danger btn-sm mx-2" name="delete">Delete</button>
-          </form>
+        <td >{{vacation.from_date}}</td>
+        <td >{{vacation.to_date}}
+          <button type="submit" value="edit" class="btn btn-link">Edit</button>
         </td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
- 
+</div>
+  
+
+
+  <script>
+    $(document).ready(function(){
+      
+
+         $("#vacation_table").DataTable({
+       	 ajax: {
+       	 	url: "{% url 'vacation_list' %}",
+       	 	type: "POST",
+       	 	data: function(d){
+       	 		d.csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val();
+            },
+          },
+          
+       })
+    });
+     
+  </script>
+
+  <script
+    src="https://code.jquery.com/jquery-3.4.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"
+  ></script>
+
   <script
     type="text/javascript"
     charset="utf8"
     src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"
   ></script>
-  <link
-    rel="stylesheet"
-    href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css"
-  />
-
-  <script
-    type="text/javascript"
-    src="https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.min.js"
-  ></script>
-  <link
-    rel="stylesheet"
-    href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.dataTables.min.css"
-  />
 
   <script>
-    $(document).ready(function () {
-      //responsive : true,
-
-      $("#vacation_table").DataTable({
-        responsive: true,
+   /* $(document).ready(function(){
+      $(document).on("dblclick",".editable",function(){
+          var value=$(this).text();
+          var data_type=$(this).data("type");
+          var input_type="text";
+          if(data_type=="created_at")
+          {
+              input_type="datetime-local";
+          }
+          var input="<input type='"+input_type+"' class='input-data' value='"+value+"' class='form-control'>";
+          $(this).html(input);
+          $(this).removeClass("editable")
       });
-    });
+    });*/
   </script>
+  {% endblock %}
 </body>
 
-{% endblock %}

@@ -1,198 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-
-
-    <script src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="~/lib/jquery-validation/dist/jquery.validate.min.js" defer></script>
-
-    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 
     <style>
         body {
-            background-color: #30c090;
-
-        }
-
-        .div-1 {
-            color: black;
-            font: size 24px;
-
-        }
-
-        a {
-            color: black;
-        }
-
-        footer {
-            padding: 0 !important;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 6%;
-            z-index: 999;
-            background-color: white;
-        }
-        .navbar-nav > li{
-            padding-left:15px;
-            padding-right:15x;
+            background-color: #209171;
           }
-         
+          .div-1{
+            width:50%;
+            padding-left: 150px;        
+            align-content: center;
+          }
     </style>
 </head>
-
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light ">
+    <nav class="navbar navbar-default navbar-static-top">
 
         <div class="container">
-          <ul class="nav navbar-nav">
-            <li><a class="nav-link"></a></li>
-            <li><a></a></li>
-              {% if request.user.is_authenticated %}
-                  <li><a class="nav-link" href="{% url 'index' %}">Welcome {{request.user.username}} </a></li>
-              {% endif %}
-            <li><a class="nav-link" href="{% url 'index' %}">Home</a></li>
-            <li><a class="nav-link" href="{% url 'form_VacationForm' %}">Vacations</a></li>
-            <li><a class="nav-link" href="{% url 'vacation_list' %}">Vacataion Lists</a></li>
-            <li><a class="nav-link">&nspar; &ThinSpace;&ThinSpace;&ThinSpace;</a></li><a>
-              {% if user.is_authenticated %}
-                  <li class="form-inline"><a class="nav-link" href="{% url 'logout_request' %}">Logout</a></li>
-              {% else %}
-                  <li class="form-inline"><a class="nav-link" href="{% url 'logout_request' %}"></a></li>
-              {% endif %}
-        </div>
-        </ul>
-        </div>
-      </nav>
-    
-
-    <h4 class="container mt-5 w-50" style='color:aliceblue;'> Signup Form:</h4>
-    <div class='div-1'>
-        <div class="jumbotron container mt-10 w-20" style=" background-color: #209171de; color:aliceblue">
-            <div class="form-group">
-                {% if registered %}
-
-                <h1>Thank You For Registration.</h1>
-                <a href="{% url 'user_login' %}">Login</a>
-                {% else %}
-
-                <form id='form-1' method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{user_form.as_p}}
-                    {{profile_form.as_p}}
-
-                    <input type="submit" name='register' id="register" value="register" class='btn btn-success' />
-                </form>
-                <p>Already a user? <a href="{% url 'user_login' %}">Login</a></p>
+            <ul class="nav navbar-nav">
+                <li><a>Registration Form</a></li>
+                <li><a></a></li>
+                <li><a href = "{% url 'index' %}" >Profile </a></li>
+                <li><a href = "{% url 'form_VacationForm' %}">Add vacation</a></li>    
+                <li><a href = "{% url 'vacation_list' %}">Vacation List</a></li>    
+                <li><a>&nspar; &ThinSpace;</a></li>
+                <li class="form-inline15"><a href = "{% url 'logout_request' %}">Logout</a></li>    
             </div>
+            </ul>
         </div>
-    </div>
-    {% endif %}
+    </nav>
 
+  <h1 class="container mt-5 w-50" style='color:aliceblue;'> Signup Form:</h1>
+  <div class='div-1'>
+<div class="jumbotron container mt-10 w-20"  style=" background: rgba(80, 182, 156, 0.39);">
+  <div class="form-group">
+{% if registered %} 
 
-
-</body>
-<footer class="text-center text-black ">
-
-
-    <div class="text-center py-3" style="background-color:white;">
-        <p> Samir Zahreddine Django Project </p>
-    </div>
-
-</footer>
+<h1>Thank You For Registration.</h1>
+<a href="{% url 'user_login' %}">Login</a>
+{% else %}   
+<form id='id_username' method="POST" enctype="multipart/form-data">
+  {% csrf_token %} 
+  {{user_form.as_p}} 
+  {{profile_form.as_p}}
+  <input type="submit" value="register"  class='btn btn-success'/>
+</form>
+<p>Already a user? <a href="{% url 'user_login' %}">Login</a></p>
 </div>
+</div>
+</div>
+{% endif %}  
+    <footer>
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+   
+    <a class="text-white">Samir Zahreddine Django Project</a>
+  </div>
+  <!-- Copyright -->
+</footer>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<script type="text/javascript">
-    window.onload = function () {
-        alert("Please enter valid details.");
-
-    };
-
-    $(document).ready(function () {
-        $('#form-1').validate({
-            rules: {
-                username: {
-                    required: true,
-                    minlength: 4,
-                    maxlength: 15
+    <script>
+        $(document).ready(function () {
+        $('#id_username').validate({
+            rules:{
+                email: "required",
+                position: "required",
+                password:{
+                    required:true,
+                    minLength:5
+                
                 },
-                email: {
-                    required: true,
-                },
-                password: {
-                    required: true,
-                    minlength: 4,
-                    maxlength: 15,
-                },
-                position: {
-                    required: true,
-                    minlength: 4,
-                    maxlength: 15
-                },
-            },
-            submitHandler: function(form) {
-                form.submit();
-            },
-            
-            // Called when the element is invalid:
-            highlight: function(element) {
-                $(element).css('background', 'red');
-            },
-            
-            // Called when the element is valid:
-            unhighlight: function(element) {
-                $(element).css('background', '#ffffff');
-            },
-        });
-    });
-
-
-    // catch the form's submit event
-    $('#form-1').keyup(function () {
-        // create an AJAX call
-        $.ajax({
-            data: $(this).serialize(), // get the form data
-            url: "{% url 'validate_username' %}",
-            // on success
-            success: function (response) {
-                if (response.is_taken == true) {
-                    $('#form-1').removeClass('is-valid').addClass('is-invalid');
-                    $('#form-1').after(
-                        '<div class="invalid-feedback d-block" style= "color: white;" id="usernameError">* username or email are not available!</div>'
-                    )
-
-                    $('#form-1').removeClass('is-valid').addClass('is-invalid');
-                    $('#form-1').after(
-                        '<div class="invalid-feedback d-block" style= "color: white;" id="usernameError">* username or email are not available!!</div>'
-                    )
-                } else {
-                    $('#form-1').removeClass('is-invalid').addClass('is-valid');
-                    $('#usernameError').remove();
+                username:{
+                    required:true,
+                    minLength:5
                 }
-            },
-            // on error
-            error: function (response) {
-                // alert the error if any error occured
-
-                console.log(response.responseJSON.errors)
             }
+            
         });
-        return false;
-    });
-</script>
+        
+  
+       
+            // catch the form's submit event
+            $('#id_username').keyup(function () {
+                // create an AJAX call
+                $.ajax({
+                    data: $(this).serialize(), // get the form data
+                    url: "{% url 'validate_username' %}",
+                    // on success
+                    success: function (response) {
+                        if (response.is_taken == true || response.is_taken2 == true) {
+                            $('#id_username').removeClass('is-valid').addClass('is-invalid');
+                            $('#id_username').after('<div class="invalid-feedback d-block" style= "color: white;" id="usernameError">* username or email are not available!</div>')
+                            
+                            $('#id_username').removeClass('is-valid').addClass('is-invalid');
+                            $('#id_username').after('<div class="invalid-feedback d-block" style= "color: white;" id="usernameError">* username or email are not available!!</div>')
+                        }
+                       
+                        else {
+                            $('#id_username').removeClass('is-invalid').addClass('is-valid');
+                            $('#usernameError').remove();
+
+                        }
+               
+                       
+                    },
+                    // on error
+                    error: function (response) {
+                        // alert the error if any error occured
+                        console.log(response.responseJSON.errors)
+                    }
+                });
+
+                return false;
+            });
+        });
+        
+
+   
+    </script>
+</body>

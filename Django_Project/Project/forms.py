@@ -1,5 +1,4 @@
 from django import forms
-
 from Vacations.models import *
 from Project import settings
 from datetime import *
@@ -24,13 +23,6 @@ class UserProfileInfoForm(forms.ModelForm):
         }  
 
 
-class UserForm1(forms.ModelForm):
-    password = forms.CharField(widget = forms.PasswordInput())
-    class Meta():
-        model = User
-        fields =('email','password')
-     
-
 
 
 class VacationInfoForm(forms.ModelForm):
@@ -40,5 +32,5 @@ class VacationInfoForm(forms.ModelForm):
         #fields = ('__all__')
         widgets = {
             'from_date': DateInput(attrs={'type': 'date'}),
-            'to_date': DateInput(attrs={'type': 'date'}),
+            'to_date': DateTimeInput(attrs={'type': 'date'}),
         }    
